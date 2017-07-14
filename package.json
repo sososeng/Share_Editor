@@ -1,0 +1,23 @@
+{
+  "name": "share_editor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sososeng/Micro_Proton_Drive.git"
+  },
+  "author": "Sokhun Seng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sososeng/Micro_Proton_Drive/issues"
+  },
+  "homepage": "https://github.com/sososeng/Micro_Proton_Drive#readme",
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.3"
+  }
+}
