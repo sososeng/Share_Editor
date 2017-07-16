@@ -10,9 +10,19 @@
 
 <body class="container-fluid">
 
+
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Clients</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
     <section class="row">
 
-        <div class="col-md-6 offset-md-3 full-height" id = "pad">
+        <div class="col-md-12 full-height" id = "pad">
         </div>
 
     </section>
@@ -21,6 +31,7 @@
     <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/urljs/2.3.1/url.min.js"></script>
     <script src="script.js"></script>
 
 </body>

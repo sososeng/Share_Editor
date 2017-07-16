@@ -164,7 +164,7 @@ $(function() {
         if (val === null) {
             // ...we will initialize a new one.
             // ...with this content:
-            val = "/* Welcome to FireEdit! */";
+            val = "/* Welcome to Share Edit! */";
 
             // Here's where we set the initial content of the editor
             editorValues.child(editorId).set({
