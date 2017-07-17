@@ -2,17 +2,16 @@
 
 window.onload = function() {
 
-  function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-  }
 
-  function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-  }
+
 
   var editor = ace.edit("pad");
-  editor.setTheme("ace/theme/merbivore_soft");
+  editor.$blockScrolling=Infinity;
+  editor.setTheme("ace/theme/xcode");
   editor.getSession().setMode("ace/mode/javascript");
+  editor.setOptions({
+    fontSize: "18px"
+  });
 
   var config = {
     apiKey: "AIzaSyBJMZXYdTZUXmqnsoJgKB_HPaQGOnNi-FI",
@@ -36,8 +35,9 @@ var currentEditorValue = editorValues.child(editorId);
 
 
 editorValues.child(editorId).child("content").once("value", function (snapshot) {
-   console.log(snapshot.val());
+  if(snapshot.val()){
    editor.setValue(snapshot.val());
+ }
    var queueRef = currentEditorValue.child("queue");
 
    var applyingDeltas = false;
@@ -89,10 +89,26 @@ editorValues.child(editorId).child("content").once("value", function (snapshot) 
    });
 });
 
+$("#select-language").change(function () {
+
+    editor.getSession().setMode("ace/mode/" + this.value);
 
 
+});
+$("#select-font").change(function () {
 
+      editor.setOptions({
+        fontSize: this.value+"px"
+      });
 
+});
 
+$("#download").click( function() {
+  var text = editor.getSession().getValue();
+  var filename = $("#filename").val();
+  var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+  saveAs(blob, filename);
+  $("#filename").val('');
+});
 
 };

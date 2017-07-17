@@ -11,7 +11,7 @@ app.get('/new', function(req,res){
 });
 
 app.get('/', function(req,res){
-  res.render('pad');
+  res.render('home');
 });
 
 var port = process.env.PORT || 8000;

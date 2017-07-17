@@ -1,0 +1,27 @@
+body{
+
+}
+#title{
+  font-family: 'Lemonada', cursive;
+  color: #666666;
+  font-size: 4em;
+  font-weight: bold;
+  margin: 0;
+  margin-left: 3em;
+
+  padding: 0;
+}
+
+#sub-title{
+  color: #666666;
+  font-size: 1.4em;
+  margin-left: 8em;
+  font-style: italic;
+  padding: 0;
+}
+
+#title-img{
+  position: absolute;
+  bottom: 0;
+
+}
