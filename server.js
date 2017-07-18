@@ -2,11 +2,15 @@ var express = require('express');
 var app = express();
 
 app.set('view engine','ejs');
-app.use(express.static(__dirname+ '/public'));
-
+app.use('/static', express.static('public'));
 app.get('/new', function(req,res){
   var theID = Math.random().toString(36).substr(2, 9);
-  res.redirect('/?id=' + theID);
+  res.redirect('/id/?id=' + theID);
+
+});
+
+app.get('/id', function(req,res){
+  res.render('pad');
 
 });
 

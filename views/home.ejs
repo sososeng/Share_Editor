@@ -5,14 +5,29 @@
 <head>
     <title>Share Editor</title>
     <link href="https://fonts.googleapis.com/css?family=Lemonada" rel="stylesheet">
-    <link href="index.css" rel="stylesheet">
+    <link href="/static/index.css" rel="stylesheet">
 </head>
-
 <body>
-<xmp id = "code"><title></xmp>
-<p id = "title">Share Editor</p>
-<p id = "sub-title">- share and collaborate your code</p>
-<img id= "title-img" src = "mouse-1412284.svg">
 
+<p id = "title"><<span id = "make-red">h1</span>>Share Editor<<span>/</span><span id = "make-red">h1</span>></p>
+<div id = "outer">
+
+  <p id = "sub-title"></p>
+
+  <div class="svg-wrapper">
+    <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+      <rect id="shape" height="40" width="150" />
+      <div id="text">
+        <a href="/new" id = "click"><span class="spot"></span></a>
+      </div>
+    </svg>
+  </div>
+</div>
+<img id= "title-img" src = "/static/mouse-1412284.svg">
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/1.1.7/typed.min.js"></script>
+<script src="/static/index.js"></script>
 </body>
 </html>
