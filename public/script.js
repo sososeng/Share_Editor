@@ -27,88 +27,100 @@ window.onload = function() {
   var uid = Math.random().toString();
 
 
-var editorId = Url.queryString("id") || "_";
-
-var editorValues = db.ref("editor_values");
-
-var currentEditorValue = editorValues.child(editorId);
+  var editorId = Url.queryString("id") || "_";
+  var editorValues = db.ref("editor_values");
+  var currentEditorValue = editorValues.child(editorId);
 
 
-editorValues.child(editorId).child("content").once("value", function (snapshot) {
-  if(snapshot.val()){
-   editor.setValue(snapshot.val());
- }
-   var queueRef = currentEditorValue.child("queue");
+  editorValues.child(editorId).child("content").once("value", function (snapshot) {
+    if(snapshot.val()){
+     editor.setValue(snapshot.val());
+   }else{
 
-   var applyingDeltas = false;
+     $('[pd-popup=popupNew]').fadeIn(100);
 
-   editor.on("change", function(e) {
+     setTimeout(function() {
+       $('[pd-popup=popupNew]').fadeOut(200);
+     }, 5000);
+   }
+     var queueRef = currentEditorValue.child("queue");
 
-       if (applyingDeltas) {
-           return;
-       }
+     var applyingDeltas = false;
+
+     editor.on("change", function(e) {
+
+         if (applyingDeltas) {
+             return;
+         }
 
 
-       currentEditorValue.update({
-           content: editor.getValue()
-       });
+         currentEditorValue.update({
+             content: editor.getValue()
+         });
 
 
-       queueRef.child(Date.now().toString() + ":" + Math.random().toString().slice(2)).set({
-           event: e,
-           by: uid
-       }).catch(function(e) {
-           console.error(e)
-       });
+         queueRef.child(Date.now().toString() + ":" + Math.random().toString().slice(2)).set({
+             event: e,
+             by: uid
+         }).catch(function(e) {
+             console.error(e)
+         });
+     });
+     var queueRef = currentEditorValue.child("queue");
+     var openPageTimestamp = Date.now();
+     var doc = editor.getSession().getDocument();
+
+     queueRef.on("child_added", function (ref) {
+
+
+         var timestamp = ref.key.split(":")[0];
+
+
+         if (openPageTimestamp > timestamp) {
+             return;
+         }
+
+
+         var value = ref.val();
+         if (value.by === uid) { return; }
+
+         // We're going to apply the changes by somebody else in our editor
+         //  1. We turn applyingDeltas on
+         applyingDeltas = true;
+         //  2. Update the editor value with the event data
+         doc.applyDeltas([value.event]);
+         //  3. Turn off the applyingDeltas
+         applyingDeltas = false;
+     });
+  });
+
+  $("#select-language").change(function () {
+
+      editor.getSession().setMode("ace/mode/" + this.value);
+
+
+  });
+  $("#select-font").change(function () {
+
+        editor.setOptions({
+          fontSize: this.value+"px"
+        });
+
+  });
+
+  $("#download").click( function() {
+    var text = editor.getSession().getValue();
+    var filename = $("#filename").val();
+    var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, filename);
+    $("#filename").val('');
+  });
+
+
+   $('[pd-popup-close]').on('click', function(e)  {
+       $('[pd-popup=popupNew]').fadeOut(200);
+       e.preventDefault();
    });
-   var queueRef = currentEditorValue.child("queue");
-   var openPageTimestamp = Date.now();
-   var doc = editor.getSession().getDocument();
 
-   queueRef.on("child_added", function (ref) {
-
-
-       var timestamp = ref.key.split(":")[0];
-
-
-       if (openPageTimestamp > timestamp) {
-           return;
-       }
-
-
-       var value = ref.val();
-       if (value.by === uid) { return; }
-
-       // We're going to apply the changes by somebody else in our editor
-       //  1. We turn applyingDeltas on
-       applyingDeltas = true;
-       //  2. Update the editor value with the event data
-       doc.applyDeltas([value.event]);
-       //  3. Turn off the applyingDeltas
-       applyingDeltas = false;
-   });
-});
-
-$("#select-language").change(function () {
-
-    editor.getSession().setMode("ace/mode/" + this.value);
-
-
-});
-$("#select-font").change(function () {
-
-      editor.setOptions({
-        fontSize: this.value+"px"
-      });
-
-});
-
-$("#download").click( function() {
-  var text = editor.getSession().getValue();
-  var filename = $("#filename").val();
-  var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
-  saveAs(blob, filename);
-  $("#filename").val('');
-});
 
 };

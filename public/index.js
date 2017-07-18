@@ -2,8 +2,8 @@ $('.svg-wrapper').hide();
 
 setTimeout(function(){
         $("#sub-title").typed({
-            strings: ["- share and collaborate your code"],
-            typeSpeed: 45, // typing speed
+            strings: ["- Share and collaborate your code, Pair programming made easy."],
+            typeSpeed: 1, // typing speed
             backDelay: 750, // pause before backspacing
             loop: false, // loop on or off (true or false)
             loopCount: false, // number of loops, false = infinite
@@ -11,7 +11,7 @@ setTimeout(function(){
               $('.svg-wrapper').show();
               $("#click").typed({
                   strings: ["Click To Start"],
-                  typeSpeed: 30, // typing speed
+                  typeSpeed: 1, // typing speed
                   backDelay: 750, // pause before backspacing
                   loop: false, // loop on or off (true or false)
                   loopCount: false, // number of loops, false = infinite
